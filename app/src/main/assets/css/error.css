@@ -1,0 +1,33 @@
+.container-content {
+  margin-top: 150px;
+  width: 100%;
+  text-align: center;
+}
+
+.wifi-container {
+  font-size: 100px;
+  color: #ccc;
+}
+
+.error-message {
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #e5e5e5;
+}
+
+.error-detail {
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  color: #aaa;
+}
+
+.error-retry {
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 8px 24px 8px 24px;
+  text-align: center;
+  color: #e5e5e5;
+  background-color: #202A33;
+  border-radius: 5px;
+}

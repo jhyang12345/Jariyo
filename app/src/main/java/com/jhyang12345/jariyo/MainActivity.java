@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_web_view)
     WebView mainWebView;
 
+    @BindView(R.id.error_web_view)
+    WebView errorWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        WebSettings errorWebSettings = errorWebView.getSettings();
+
+        errorWebSettings.setJavaScriptEnabled(true);
+
+        errorWebView.loadUrl("file:///android_asset/error.html");
+        errorWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
+
 
     }
 
@@ -74,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
-            
 
+            errorWebView.setVisibility(View.VISIBLE);
         }
 
         @Override

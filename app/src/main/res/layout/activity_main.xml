@@ -18,6 +18,15 @@
 
     </WebView>
 
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundGray"
+        android:translationZ="1dp"
+        android:visibility="gone"
+        android:id="@+id/error_web_view">
+
+    </WebView>
 
 
 </android.support.constraint.ConstraintLayout>
