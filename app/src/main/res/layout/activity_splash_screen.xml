@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#202A33"
+    tools:context="com.jhyang12345.jariyo.SplashScreenActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icon_blue"
+        android:layout_above="@+id/fullscreen_content"
+        android:layout_marginBottom="50dp"
+        android:layout_centerHorizontal="true"
+
+
+        />
+
+    <TextView
+        android:fontFamily="@font/bmjua"
+        android:id="@+id/fullscreen_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/app_name"
+        android:letterSpacing="0.15"
+        android:textColor="#e5e5e5"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        style="@style/AVLoadingIndicatorView"
+        app:indicatorName="BallPulseIndicator"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/fullscreen_content"
+        app:indicatorColor="#e5e5e5"
+        />
+
+
+</RelativeLayout>
