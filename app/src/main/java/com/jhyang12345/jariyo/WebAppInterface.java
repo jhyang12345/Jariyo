@@ -1,6 +1,8 @@
 package com.jhyang12345.jariyo;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -14,13 +16,27 @@ public class WebAppInterface {
     WebView mainWebView;
     WebView errorWebView;
 
-    WebAppInterface(Context c) {
+    WebAppInterface(Context c, WebView mainWebView, WebView errorWebView) {
         context = c;
+        this.mainWebView = mainWebView;
+        this.errorWebView = errorWebView;
 
     }
 
     @JavascriptInterface
     public void retryConnection() {
-        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+        this.errorWebView.post(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        this.mainWebView.post(new Runnable() {
+            @Override
+            public void run() {
+                mainWebView.loadUrl(JariyoProperties.getInstance().url);
+            }
+        });
+
+        Log.d("ReloadWebView", JariyoProperties.getInstance().url);
     }
 }

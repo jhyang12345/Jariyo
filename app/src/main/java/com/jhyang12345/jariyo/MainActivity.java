@@ -7,12 +7,14 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,12 +29,22 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.error_web_view)
     WebView errorWebView;
 
+    @BindView(R.id.loading_overylay)
+    LinearLayout loadingOverlay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         properties = JariyoProperties.getInstance();
+
+        loadingOverlay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
         WebSettings webSettings = mainWebView.getSettings();
 
@@ -54,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         errorWebSettings.setJavaScriptEnabled(true);
 
         errorWebView.loadUrl("file:///android_asset/error.html");
-        errorWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
+        errorWebView.addJavascriptInterface(new WebAppInterface(this, mainWebView, errorWebView), "Android");
 
 
     }
@@ -69,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class MainWebViewClient extends WebViewClient {
+        private boolean webViewSuccess = true;
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -87,16 +101,25 @@ public class MainActivity extends AppCompatActivity {
             super.onReceivedError(view, request, error);
 
             errorWebView.setVisibility(View.VISIBLE);
+            webViewSuccess = false;
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
+            Log.d("WebViewClient", "Page Reloading");
+            loadingOverlay.setVisibility(View.VISIBLE);
+
+            webViewSuccess = true;
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            if(webViewSuccess) {
+                errorWebView.setVisibility(View.GONE);
+            }
+            loadingOverlay.setVisibility(View.GONE);
         }
     }
 
