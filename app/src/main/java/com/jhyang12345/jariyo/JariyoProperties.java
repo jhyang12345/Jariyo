@@ -8,6 +8,7 @@ public class JariyoProperties {
     private static JariyoProperties instance = null;
 //    public String url = "http://ec2-54-187-156-41.us-west-2.compute.amazonaws.com:8000/";
     public String url = "http://211.226.115.87:8000";
+    public boolean clearHistory = false;
 
     protected JariyoProperties(){}
 

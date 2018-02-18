@@ -39,4 +39,10 @@ public class WebAppInterface {
 
         Log.d("ReloadWebView", JariyoProperties.getInstance().url);
     }
+
+    @JavascriptInterface
+    public void clearHistory() {
+        JariyoProperties.getInstance().clearHistory = true;
+        Log.d("clearHistory", "called");
+    }
 }

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainWebView.setWebViewClient(new MainWebViewClient());
         mainWebView.setBackgroundColor(Color.TRANSPARENT);
+        mainWebView.addJavascriptInterface(new WebAppInterface(this, mainWebView, errorWebView), "Android");
 
         try {
             mainWebView.loadUrl(properties.url);
@@ -118,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
             super.onPageFinished(view, url);
             if(webViewSuccess) {
                 errorWebView.setVisibility(View.GONE);
+            }
+
+            if(JariyoProperties.getInstance().clearHistory) {
+                mainWebView.clearHistory();
+                JariyoProperties.getInstance().clearHistory = false;
             }
             loadingOverlay.setVisibility(View.GONE);
         }
