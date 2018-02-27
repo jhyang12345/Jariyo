@@ -1,6 +1,13 @@
 package com.jhyang12345.jariyo;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -13,8 +20,11 @@ import android.widget.Toast;
 
 public class WebAppInterface {
     Context context;
+//    Activity activityContext;
     WebView mainWebView;
     WebView errorWebView;
+
+    final int INT_TO_CHECK = 100;
 
     WebAppInterface(Context c, WebView mainWebView, WebView errorWebView) {
         context = c;
@@ -54,5 +64,19 @@ public class WebAppInterface {
     @JavascriptInterface
     public void setHandleBackButton() {
         JariyoProperties.getInstance().backButtonHandled = true;
+    }
+
+    @JavascriptInterface
+    public void invokeCall(String phoneNumber) {
+        if ( ContextCompat.checkSelfPermission( context, Manifest.permission.CALL_PHONE ) != PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions((Activity) context, new String[] {
+                    android.Manifest.permission.CALL_PHONE  }, INT_TO_CHECK
+                    );
+        } else {
+            // permission was granted, yay!
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(phoneNumber));
+            context.startActivity(intent);
+        }
     }
 }

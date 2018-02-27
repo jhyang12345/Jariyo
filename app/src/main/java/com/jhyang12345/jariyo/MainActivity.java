@@ -1,9 +1,11 @@
 package com.jhyang12345.jariyo;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,6 +76,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 100: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+        }
+
+    }
+
+    @Override
     public void onBackPressed() {
         if(JariyoProperties.getInstance().backButtonHandled) {
             Log.d("BackButtonHandled", "handled");
@@ -99,11 +121,11 @@ public class MainActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             Log.d("WebViewClient", url);
-            if (Uri.parse(url).getHost().equals(JariyoProperties.getInstance().url)) {
-
-                // This is my web site, so do not override; let my WebView load the page
-                return false;
-            }
+//            if (Uri.parse(url).getHost().equals(JariyoProperties.getInstance().url)) {
+//
+//                // This is my web site, so do not override; let my WebView load the page
+//                return false;
+//            }
 
             return true;
         }
