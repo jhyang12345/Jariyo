@@ -45,4 +45,14 @@ public class WebAppInterface {
         JariyoProperties.getInstance().clearHistory = true;
         Log.d("clearHistory", "called");
     }
+
+    @JavascriptInterface
+    public void handleBackButton() {
+        JariyoProperties.getInstance().backButtonHandled = false;
+    }
+
+    @JavascriptInterface
+    public void setHandleBackButton() {
+        JariyoProperties.getInstance().backButtonHandled = true;
+    }
 }

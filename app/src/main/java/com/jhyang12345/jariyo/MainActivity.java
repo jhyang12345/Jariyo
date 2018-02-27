@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -74,7 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mainWebView.canGoBack()) {
+        if(JariyoProperties.getInstance().backButtonHandled) {
+            Log.d("BackButtonHandled", "handled");
+            mainWebView.evaluateJavascript("pageObject.closeOpenView()",
+                    new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String s) {
+                            Log.d("LogName", s); // Prints: "this"
+                        }
+                    }
+            );
+        } else if (mainWebView.canGoBack()) {
             mainWebView.goBack();
         } else {
             super.onBackPressed();
