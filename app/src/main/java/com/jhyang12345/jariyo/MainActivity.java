@@ -152,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("WebViewClient", "Page Reloading");
             loadingOverlay.setVisibility(View.VISIBLE);
 
+            // resetting backButtonHandled
+            JariyoProperties.getInstance().backButtonHandled = false;
+
             webViewSuccess = true;
         }
 
