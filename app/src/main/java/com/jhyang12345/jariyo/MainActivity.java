@@ -187,13 +187,74 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Font file found!", fileName);
                     mimeType = helper.getMimeType("woff");
                     try {
-                        return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("fonts/" + fileName, mimeType, encoding);
+                        return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("css/fonts/" + fileName, mimeType, encoding);
                     } catch (IOException e) {
-                        Log.d("ResourceException", "error");
+                        Log.d("ResourceException", fileName);
                         return super.shouldInterceptRequest(view, request);
                     }
 
+                } else if(fileName.endsWith(".ttf")) {
+                    Log.d("Font file found!", fileName);
+                    mimeType = helper.getMimeType("ttf");
+                    try {
+                        return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("css/fonts/" + fileName, mimeType, encoding);
+                    } catch (IOException e) {
+                        Log.d("ResourceException", fileName);
+                        return super.shouldInterceptRequest(view, request);
+                    }
+                } else if(fileName.endsWith(".otf")) {
+                    Log.d("Font file found!", fileName);
+                    mimeType = helper.getMimeType("otf");
+                    try {
+                        return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("css/fonts/" + fileName, mimeType, encoding);
+                    } catch (IOException e) {
+                        Log.d("ResourceException", fileName);
+                        return super.shouldInterceptRequest(view, request);
+                    }
+                } else if(fileName.endsWith(".css")) {
+                    if(fileName.contains("font-awesome")) {
+                        Log.d("Font file found!", fileName);
+                        mimeType = helper.getMimeType("css");
+                        try {
+                            return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("css/font-awesome/css/" + fileName, mimeType, encoding);
+                        } catch (IOException e) {
+                            Log.d("ResourceException", fileName);
+                            return super.shouldInterceptRequest(view, request);
+                        }
+                    } else if(fileName.contains("fontawesome")) {
+                        Log.d("Font file found!", fileName);
+                        mimeType = helper.getMimeType("css");
+                        try {
+                            return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("css/font-awesome/css/" + fileName, mimeType, encoding);
+                        } catch (IOException e) {
+                            Log.d("ResourceException", fileName);
+                            return super.shouldInterceptRequest(view, request);
+                        }
+                    } else if(fileName.contains("bootstrap")) {
+                        Log.d("Font file found!", fileName);
+                        mimeType = helper.getMimeType("css");
+                        try {
+                            return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("css/" + fileName, mimeType, encoding);
+                        } catch (IOException e) {
+                            Log.d("ResourceException", fileName);
+                            return super.shouldInterceptRequest(view, request);
+                        }
+                    }
+                } else if(fileName.endsWith(".js")) {
+                    if(fileName.contains("bootstrap")) {
+                        Log.d("Font file found!", fileName);
+                        mimeType = helper.getMimeType("js");
+                        try {
+                            return WebviewResourceMappingHelper.getWebResourceResponseFromAsset("js/" + fileName, mimeType, encoding);
+                        } catch (IOException e) {
+                            Log.d("ResourceException", fileName);
+                            return super.shouldInterceptRequest(view, request);
+                        }
+                    }
                 }
+
+
+
 
             }
 
