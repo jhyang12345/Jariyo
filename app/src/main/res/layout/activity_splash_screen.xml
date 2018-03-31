@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#202A33"
+    android:background="#323232"
     tools:context="com.jhyang12345.jariyo.SplashScreenActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -11,13 +11,13 @@
          TextureView, etc. -->
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/icon_blue"
         android:layout_above="@+id/fullscreen_content"
         android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"
-
+        android:id="@+id/gif_holder"
         />
 
     <TextView

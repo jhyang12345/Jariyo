@@ -10,7 +10,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,12 +29,19 @@ public class SplashScreenActivity extends AppCompatActivity {
     @BindView(R.id.fullscreen_content)
     TextView fullscreenTextView;
 
+    @BindView(R.id.gif_holder)
+    ImageView gifHolder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
+
+        Glide.with(this)
+                .load(R.raw.jariyo)
+                .into(gifHolder);
 
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fade_in);
