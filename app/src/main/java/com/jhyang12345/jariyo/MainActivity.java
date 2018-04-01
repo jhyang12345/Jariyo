@@ -1,6 +1,7 @@
 package com.jhyang12345.jariyo;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -112,37 +114,12 @@ public class MainActivity extends AppCompatActivity {
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        getLocationPermission();
+//        getLocationPermission();
 
-        getDeviceLocation();
+//        getDeviceLocation();
     }
 
-    private void getLocationPermission() {
-    /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        }
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-        }
-    }
 
 //    @Override
 //    protected void onStart() {
@@ -159,36 +136,6 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-    private void getDeviceLocation() {
-    /*
-     * Get the best and most recent location of the device, which may be null in rare
-     * cases when a location is not available.
-     */
-        try {
-            if (mLocationPermissionGranted) {
-                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
-                            // Set the map's camera position to the current location of the device.
-                            mLastKnownLocation = task.getResult();
-                            double latitude = mLastKnownLocation.getLatitude();
-                            double longitude = mLastKnownLocation.getLongitude();
-                            Log.d("Location", String.valueOf(latitude));
-                        } else {
-                            Log.d("Location", "Current location is null. Using defaults.");
-                            Log.e("Location", "Exception: %s", task.getException());
-                        }
-                    }
-                });
-
-            }
-        } catch(SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
-        }
-    }
 
 
     @Override
@@ -211,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("Location", "Received!");
-                    getDeviceLocation();
+//                    getDeviceLocation();
                 } else {
 
                     // permission denied, boo! Disable the

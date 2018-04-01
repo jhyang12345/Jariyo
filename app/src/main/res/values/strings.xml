@@ -4,4 +4,8 @@
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="agree">확인</string>
+    <string name="gps_dialog_title">위치 정보</string>
+    <string name="gps_dialog_content">앱의 기능을 최대한 활용하려면 기기에서 GPS 위치 기능 사용 설정하세요.</string>
 </resources>
